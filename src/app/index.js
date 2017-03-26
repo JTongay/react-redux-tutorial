@@ -30,7 +30,8 @@ class App extends React.Component {
 
 render(<App />, window.document.getElementById('app'));*/
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import {createLogger} from 'redux-logger';
 
 const initialState = {
     result: 1,
@@ -83,10 +84,20 @@ const userReducer = (state = {
     return state;
 }
 
-const store = createStore(combineReducers({mathReducer, userReducer}));
+const myLogger = (store)=> (next) => (action) =>{
+    console.log("logged action", action);
+    next(action)
+}
+
+const store = createStore(
+    combineReducers(
+        {mathReducer, userReducer}), 
+        {}, 
+        applyMiddleware(createLogger())
+    );
 
 store.subscribe(()=>{
-    console.log("store updated!", store.getState());
+    // console.log("store updated!", store.getState());
 });
 
 store.dispatch({
