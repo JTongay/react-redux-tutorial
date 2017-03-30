@@ -1,4 +1,4 @@
-import logger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 
 import math from './reducers/mathReducer';
