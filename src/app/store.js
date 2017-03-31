@@ -1,4 +1,6 @@
 import { createLogger } from 'redux-logger'
+import thunk from 'redux-thunk'
+import promise from 'redux-promise-middleware'
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 
 import math from './reducers/mathReducer';
@@ -10,5 +12,5 @@ export default createStore(
         user
         }), 
         {}, 
-        applyMiddleware(createLogger())
+        applyMiddleware(createLogger(), thunk, promise())
     );
